@@ -8,6 +8,7 @@ sealed class Screen(val route:String){
     data object AñadirPed:Screen(route = "añadirped_page")
     data object Com:Screen(route = "com_page")
     data object DeteleCom:Screen(route = "deletecom_page")
+    data object DetelePed:Screen(route = "deleteped_page")
     data object Ped:Screen(route = "ped_page")
 
     data class Detail (val itemId:String):Screen(route = "detail_page/{itemId}"){
