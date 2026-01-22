@@ -11,6 +11,7 @@ sealed class Screen(val route:String){
     data object DetelePed:Screen(route = "deleteped_page")
     data object Ped:Screen(route = "ped_page")
 
+
     data class Detail (val itemId:String):Screen(route = "detail_page/{itemId}"){
 
         fun buidRoute():String {

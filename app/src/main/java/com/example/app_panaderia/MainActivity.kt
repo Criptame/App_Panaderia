@@ -46,6 +46,7 @@ class MainActivity : ComponentActivity() {
                                     restoreState = true
                                 }
                             }
+
                             is NavigationEvent.PopBackStack -> navController.popBackStack()
                             is NavigationEvent.NavigateUp -> navController.navigateUp()
                         }
@@ -65,11 +66,16 @@ class MainActivity : ComponentActivity() {
                             InicioUser(navController = navController, viewModel = viewModel)
                         }
                         composable(route = Screen.Vizu.route) {
-                            VisualizarEntidades(navController = navController, viewModel = viewModel)
+                            VisualizarEntidades(
+                                navController = navController,
+                                viewModel = viewModel
+                            )
                         }
-                        composable(route = Screen.AñadirCom.route){
+                        composable(route = Screen.AñadirCom.route) {
                             AñadirComprador(navController = navController, viewModel = viewModel)
                         }
+                        composable(route = Screen.ConfigPed.route) {
+                            ConfigurarPedido(navController = navController, viewModel = viewModel)
 
                         }
                     }
@@ -77,3 +83,4 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
