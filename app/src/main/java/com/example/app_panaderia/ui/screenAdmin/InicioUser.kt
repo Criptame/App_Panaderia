@@ -1,6 +1,7 @@
 package com.example.app_panaderia.ui.screenAdmin
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.*
 import androidx.compose.material.icons.*
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -9,6 +10,8 @@ import androidx.compose.ui.*
 import androidx.compose.ui.unit.*
 import com.example.app_panaderia.navigation.Screen
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.layout.*
+import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.app_panaderia.viewModels.MainViewModel
 import kotlinx.coroutines.*

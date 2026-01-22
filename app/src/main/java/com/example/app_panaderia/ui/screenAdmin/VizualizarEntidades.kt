@@ -38,6 +38,15 @@ fun VisualizarEntidades(
                         viewModel.navigateTo(Screen.Admin)
                     }
                 )
+                Spacer(modifier = Modifier.height(8.dp))
+                NavigationDrawerItem(
+                    label = { Text(text = "Ir a Añadir Comprador") },
+                    selected = false,
+                    onClick = {
+                        scope.launch { drawerState.close() }
+                        viewModel.navigateTo(Screen.AñadirCom)
+                    }
+                )
             }
         }
     ) {
@@ -58,7 +67,7 @@ fun VisualizarEntidades(
                 )
             }
         ){
-            innerPadding ->
+                innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 // Contenido de la pantalla
                 Column(
@@ -74,6 +83,12 @@ fun VisualizarEntidades(
                         viewModel.navigateTo(Screen.Admin)
                     }) {
                         Text(text = "Volver al Inicio Admin")
+                    }
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Button(onClick = {
+                        viewModel.navigateTo(Screen.AñadirCom)
+                    }) {
+                        Text(text = "Ir a Añadir Comprador")
                     }
                 }
                 Image(

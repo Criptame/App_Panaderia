@@ -67,6 +67,9 @@ class MainActivity : ComponentActivity() {
                         composable(route = Screen.Vizu.route) {
                             VisualizarEntidades(navController = navController, viewModel = viewModel)
                         }
+                        composable(route = Screen.AñadirCom.route){
+                            AñadirComprador(navController = navController, viewModel = viewModel)
+                        }
 
                         }
                     }
