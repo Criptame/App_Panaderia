@@ -61,5 +61,9 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:<versión>")
     implementation("androidx.compose.material:material-icons-extended:1.5.1")
 
+    //Recursos Nativos de camara , galeria y gps
+    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.1")
+
 
 }

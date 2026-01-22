@@ -1,7 +1,7 @@
 package com.example.app_panaderia.model
 
-class UsuarioErrores {
-    var nombreError: String = ""
-    var emailError: String = ""
-    var passwordError: String = ""
-}
+data class UsuarioErrores(
+    val nombreError: String = "",
+    val emailError: String = "",
+    val passwordError: String = ""
+)

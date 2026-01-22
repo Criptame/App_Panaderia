@@ -38,15 +38,6 @@ fun VisualizarEntidades(
                         viewModel.navigateTo(Screen.Admin)
                     }
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                NavigationDrawerItem(
-                    label = { Text(text = "Ir a Añadir Comprador") },
-                    selected = false,
-                    onClick = {
-                        scope.launch { drawerState.close() }
-                        viewModel.navigateTo(Screen.AñadirCom)
-                    }
-                )
             }
         }
     ) {
@@ -90,7 +81,20 @@ fun VisualizarEntidades(
                     }) {
                         Text(text = "Ir a Añadir Comprador")
                     }
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Button(onClick = {
+                        viewModel.navigateTo(Screen.AñadirPed)
+                    }) {
+                        Text(text = "Ir a Añadir Pedidos")
+                    }
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Button(onClick = {
+                        viewModel.navigateTo(Screen.Com)
+                    }) {
+                        Text(text = "Ir a Compradores")
+                    }
                 }
+
                 Image(
                     painter = painterResource(id = com.example.app_panaderia.R.drawable.imagen),
                     contentDescription = "Imagen Visualizar",
