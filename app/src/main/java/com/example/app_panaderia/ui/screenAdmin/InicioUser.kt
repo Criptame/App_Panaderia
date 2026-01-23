@@ -9,6 +9,7 @@ import androidx.compose.ui.*
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.app_panaderia.ui.theme.App_PanaderiaTheme
 import com.example.app_panaderia.navigation.Screen
 import com.example.app_panaderia.ui.components.PrimaryButton
 

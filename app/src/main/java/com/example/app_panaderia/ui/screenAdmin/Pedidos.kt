@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ReceiptLong
 import androidx.compose.material.icons.filled.ReceiptLong
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -86,7 +87,7 @@ fun PedidoItem(pedido: Pedido) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = Icons.Default.ReceiptLong,
+                imageVector = Icons.AutoMirrored.Filled.ReceiptLong,
                 contentDescription = "Icono de Pedido",
                 modifier = Modifier.size(40.dp),
                 tint = MaterialTheme.colorScheme.primary

@@ -1,26 +1,30 @@
 package com.example.app_panaderia.ui.role
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.*
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
 import com.example.app_panaderia.navigation.Screen
 import com.example.app_panaderia.ui.components.PrimaryButton
 
 @Composable
 fun RoleSelectionScreen(navController: NavController) {
+
     Scaffold {
+
+        Text("Bienvenido a la App de Panadería", fontSize = 20.sp, fontWeight = FontWeight.Medium)
+        Image(
+            painter = androidx.compose.ui.res.painterResource(id = com.example.app_panaderia.R.drawable.imagen),
+            contentDescription = "Logo de la Panadería",
+            modifier = Modifier
+                .size(150.dp)
+                .padding(16.dp)
+        )
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
