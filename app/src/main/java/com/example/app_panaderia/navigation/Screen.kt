@@ -5,21 +5,21 @@ sealed class Screen(val route: String) {
     data object RoleSelection : Screen(route = "role_selection_page")
 
     // Admin Flow
-    data object Admin : Screen(route = "admin_page")
-    data object Vizu : Screen(route = "vizu_page")
+    data object Admin : Screen(route = "admin_login_page") // Pantalla de login para el admin
+    data object Vizu : Screen(route = "admin_panel_page") // Panel de visualización de entidades
+    data object Com : Screen(route = "admin_compradores_page") // Lista de compradores
+    data object Pedidos : Screen(route = "admin_pedidos_page") // Lista de pedidos
     data object ConfigPed : Screen(route = "configped_page")
     data object AñadirCom : Screen(route = "añadircom_page")
     data object AñadirPed : Screen(route = "añadirped_page")
-    data object Com : Screen(route = "com_page")
     data object DeteleCom : Screen(route = "deletecom_page")
     data object DetelePed : Screen(route = "deleteped_page")
     data object Ped : Screen(route = "ped_page")
-    data object Pedidos : Screen(route = "pedidos_page")
 
     // User Flow
     data object UserHome : Screen(route = "user_home_page")
     data object UserProfile : Screen(route = "user_profile_page")
-    data object UserCatalogo : Screen(route = "user_catalogo_page") // Catálogo de productos
+    data object UserCatalogo : Screen(route = "user_catalogo_page")
 
     // Repartidor Flow
     data object Repartidor : Screen(route = "repartidor_home_page")

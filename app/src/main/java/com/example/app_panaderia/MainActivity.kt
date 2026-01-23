@@ -59,22 +59,26 @@ class MainActivity : ComponentActivity() {
                         startDestination = Screen.RoleSelection.route,
                         modifier = Modifier.padding(paddingValues = innerPadding)
                     ) {
+                        // --- Pantalla de Selección de Rol ---
                         composable(route = Screen.RoleSelection.route) {
                             RoleSelectionScreen(navController = navController)
                         }
 
-                        // Admin Flow
+                        // --- Flujo de Administrador Refactorizado ---
                         composable(route = Screen.Admin.route) {
-                            InicioUser(navController = navController, viewModel = mainViewModel)
+                            AdminLoginScreen(navController = navController)
                         }
-                        composable(route = Screen.Vizu.route) { // Ruta añadida
+                        composable(route = Screen.Vizu.route) {
+                            VisualizarEntidadesScreen(navController = navController)
+                        }
+                        composable(route = Screen.Com.route) {
                             CompradoresScreen(navController = navController, viewModel = mainViewModel)
                         }
                         composable(route = Screen.Pedidos.route) {
                             PedidosScreen(navController = navController, viewModel = mainViewModel)
                         }
-                        
-                        // User Flow
+
+                        // --- Flujo de Usuario ---
                         composable(route = Screen.UserHome.route) {
                             UserHomeScreen(navController = navController)
                         }
@@ -87,7 +91,7 @@ class MainActivity : ComponentActivity() {
                             CatalogoScreen(navController = navController, userViewModel = userViewModel)
                         }
 
-                        // Repartidor Flow
+                        // --- Flujo de Repartidor ---
                         composable(route = Screen.Repartidor.route) {
                             RepartidorHomeScreen(navController = navController)
                         }

@@ -15,6 +15,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -24,7 +25,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,15 +44,8 @@ fun Perfil(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Perfil de Usuario") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Volver"
-                        )
-                    }
-                }
+                title = { Text(text = "Perfil de Usuario") }
+                // Los colores de la TopAppBar se toman automáticamente del tema
             )
         }
     ) { paddingValues ->
@@ -68,7 +61,8 @@ fun Perfil(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
-                    .background(Color(0xFFE0F7FA))
+                    // Usamos un color del tema para el fondo de la tarjeta
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
                     .padding(24.dp)
             ) {
                 Column(
@@ -79,21 +73,25 @@ fun Perfil(
                     Box(
                         modifier = Modifier
                             .size(100.dp)
-                            .background(Color.Gray, shape = RoundedCornerShape(50.dp))
+                            // Usamos un color del tema para el círculo
+                            .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(50.dp))
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     // Nombre de usuario
                     Text(
                         text = usuarioState.nombre,
                         fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        // El color del texto se toma del tema (`onSurface`)
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     // Email de usuario
                     Text(
                         text = usuarioState.email,
                         fontSize = 16.sp,
-                        color = Color.Gray
+                        // Usamos un color secundario del tema para el email
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
