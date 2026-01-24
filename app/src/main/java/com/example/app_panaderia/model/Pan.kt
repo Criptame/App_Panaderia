@@ -8,5 +8,6 @@ data class Pan(
     val nombre: String = "",
     val descripcion: String = "",
     val precio: Double = 0.0,
-    val imagenUrl: String = ""
+    val imagenUrl: String = "",
+    val stock: String = ""
 )
