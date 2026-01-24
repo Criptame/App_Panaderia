@@ -1,9 +1,10 @@
 package com.example.app_panaderia.model.data
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.app_panaderia.model.*
-import com.example.app_panaderia.model.data.ProductoDao
 
 @Database(
     entities = [Pan::class],
@@ -12,5 +13,16 @@ import com.example.app_panaderia.model.data.ProductoDao
 
 abstract class AppDataBase : RoomDatabase() {
     abstract fun productoDao(): ProductoDao
+    companion object {
+        @Volatile private var INSTANCE: AppDataBase? = null
 
+        fun get(context: Context): AppDataBase =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDataBase::class.java,
+                    "productos.db"
+                ).build().also { INSTANCE = it }
+            }
+    }
 }
