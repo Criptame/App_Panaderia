@@ -4,25 +4,34 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.app_panaderia.model.*
+import com.example.app_panaderia.model.Pan
 
+// Añadir anotación @Database
 @Database(
     entities = [Pan::class],
     version = 1,
-    exportSchema = false)
+    exportSchema = false
+)
+abstract class AppDatabase : RoomDatabase() {
 
-abstract class AppDataBase : RoomDatabase() {
     abstract fun productoDao(): ProductoDao
-    companion object {
-        @Volatile private var INSTANCE: AppDataBase? = null
 
-        fun get(context: Context): AppDataBase =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: Room.databaseBuilder(
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+
+        fun getDatabase(context: Context): AppDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDataBase::class.java,
-                    "productos.db"
-                ).build().also { INSTANCE = it }
+                    AppDatabase::class.java,
+                    "panaderia_database"
+                )
+                    .fallbackToDestructiveMigration() // Elimina y recrea en migraciones
+                    .build()
+                INSTANCE = instance
+                instance
             }
+        }
     }
 }
