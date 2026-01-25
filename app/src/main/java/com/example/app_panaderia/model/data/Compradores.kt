@@ -1,7 +1,4 @@
 package com.example.app_panaderia.model.data
-
-import com.example.app_panaderia.model.*
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
