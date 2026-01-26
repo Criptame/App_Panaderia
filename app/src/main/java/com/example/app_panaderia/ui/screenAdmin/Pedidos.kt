@@ -1,46 +1,49 @@
 package com.example.app_panaderia.ui.screenAdmin
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ReceiptLong
-import androidx.compose.material.icons.filled.ReceiptLong
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.app_panaderia.model.Pedido
 import com.example.app_panaderia.viewModels.MainViewModel
+import java.util.Locale
 
-// Datos de ejemplo
+// Datos de ejemplo actualizados para usar Long en id y compradorId
 val samplePedidos = listOf(
-    Pedido(id = "PED-001", compradorId = "USR-001", total = 25.50, estado = "Pendiente", fecha = "2024-05-20"),
-    Pedido(id = "PED-002", compradorId = "USR-002", total = 15.00, estado = "En reparto", fecha = "2024-05-20"),
-    Pedido(id = "PED-003", compradorId = "USR-001", total = 45.75, estado = "Entregado", fecha = "2024-05-19")
+    Pedido(
+        id = 1L,
+        compradorId = 1L,
+        total = 25.50,
+        estado = "Pendiente",
+        fecha = "2024-05-20",
+        direccionEntrega = "Calle Principal 123"
+    ),
+    Pedido(
+        id = 2L,
+        compradorId = 2L,
+        total = 15.00,
+        estado = "En reparto",
+        fecha = "2024-05-20",
+        direccionEntrega = "Avenida Central 456"
+    ),
+    Pedido(
+        id = 3L,
+        compradorId = 1L,
+        total = 45.75,
+        estado = "Entregado",
+        fecha = "2024-05-19",
+        direccionEntrega = "Calle Secundaria 789"
+    )
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,9 +58,16 @@ fun PedidosScreen(
                 title = { Text("Gestión de Pedidos") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Volver"
+                        )
                     }
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                )
             )
         }
     ) { paddingValues ->
@@ -80,7 +90,12 @@ fun PedidoItem(pedido: Pedido) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(4.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
+        onClick = {
+            // Aquí puedes agregar navegación a detalles del pedido
+        }
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
@@ -100,23 +115,46 @@ fun PedidoItem(pedido: Pedido) {
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Cliente: ${pedido.compradorId}",
+                    text = "Cliente ID: ${pedido.compradorId}",
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
-                    text = "Total: $${String.format("%.2f", pedido.total)}",
+                    text = "Total: $${String.format(Locale.getDefault(), "%.2f", pedido.total)}",
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.SemiBold
                 )
+                if (pedido.direccionEntrega.isNotEmpty()) {
+                    Text(
+                        text = "Dirección: ${pedido.direccionEntrega}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
             Column(horizontalAlignment = Alignment.End) {
-                val estadoColor = when (pedido.estado) {
-                    "Entregado" -> Color(0xFF388E3C) // Verde para estado completado
-                    "En reparto" -> MaterialTheme.colorScheme.tertiary // Rojo suave del tema
-                    else -> MaterialTheme.colorScheme.primary // Marrón del tema para otros estados
+                val estadoColor = when (pedido.estado.lowercase()) {
+                    "entregado" -> Color(0xFF388E3C) // Verde para estado completado
+                    "en reparto" -> Color(0xFFF57C00) // Naranja para en reparto
+                    "preparando" -> Color(0xFF1976D2) // Azul para preparando
+                    else -> MaterialTheme.colorScheme.primary // Color primario del tema para otros estados
                 }
-                Text(text = pedido.estado, color = estadoColor, fontWeight = FontWeight.Bold)
-                Text(text = pedido.fecha, style = MaterialTheme.typography.bodySmall)
+
+                Badge(
+                    containerColor = estadoColor,
+                    contentColor = Color.White
+                ) {
+                    Text(
+                        text = pedido.estado,
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = pedido.fecha,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
     }

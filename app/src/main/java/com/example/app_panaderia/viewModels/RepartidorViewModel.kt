@@ -26,7 +26,7 @@ class RepartidorViewModel : ViewModel() {
         viewModelScope.launch {
             // Simulación de carga de datos del repartidor
             _uiState.value = UsuarioUiState(
-                id = "repartidor456",
+                id = "456",
                 nombre = "Ana Gómez",
                 email = "ana.gomez@example.com",
                 esAdmin = false
@@ -36,11 +36,11 @@ class RepartidorViewModel : ViewModel() {
 
     private fun loadPedidosAsignados() {
         viewModelScope.launch {
-            // Simulación de carga de pedidos asignados
+            // Simulación de carga de pedidos asignados con IDs de tipo Long
             val samplePedidos = listOf(
-                Pedido(id = "PED-002", compradorId = "USR-002", repartidorId = "repartidor456", total = 15.00, estado = "En reparto", fecha = "2024-05-20"),
-                Pedido(id = "PED-004", compradorId = "USR-003", repartidorId = "repartidor456", total = 12.50, estado = "Pendiente de recogida", fecha = "2024-05-21"),
-                Pedido(id = "PED-005", compradorId = "USR-004", repartidorId = "repartidor456", total = 8.75, estado = "Pendiente de recogida", fecha = "2024-05-21")
+                Pedido(id = 2L, compradorId = 102L, repartidorId = 456L, total = 15.00, estado = "En reparto", fecha = "2024-05-20"),
+                Pedido(id = 4L, compradorId = 103L, repartidorId = 456L, total = 12.50, estado = "Pendiente de recogida", fecha = "2024-05-21"),
+                Pedido(id = 5L, compradorId = 104L, repartidorId = 456L, total = 8.75, estado = "Pendiente de recogida", fecha = "2024-05-21")
             )
             _pedidos.value = samplePedidos
         }

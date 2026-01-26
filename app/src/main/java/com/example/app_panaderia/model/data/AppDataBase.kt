@@ -6,17 +6,25 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.app_panaderia.model.Pan
+import com.example.app_panaderia.model.Pedido
+import com.example.app_panaderia.model.DetallePedido
+import com.example.app_panaderia.model.data.Comprador
 
 @Database(
-    entities = [Pan::class, Comprador::class],
-    version = 2,
+    entities = [
+        Pan::class,
+        Comprador::class,
+        Pedido::class,
+        DetallePedido::class
+    ],
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-
     abstract fun productoDao(): ProductoDao
-    abstract fun compradoresDao(): CompradoresDao
+    abstract fun compradorDao(): CompradorDao
+    abstract fun pedidoDao(): PedidoDao
 
     companion object {
         @Volatile
