@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                             RoleSelectionScreen(navController = navController)
                         }
 
-                        // --- Flujo de Administrador ---
+                        // --- Flujo de Administrador Refactorizado ---
                         composable(route = Screen.Admin.route) {
                             AdminLoginScreen(navController = navController)
                         }
@@ -76,21 +76,6 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = Screen.Pedidos.route) {
                             PedidosScreen(navController = navController, viewModel = mainViewModel)
-                        }
-                        composable(route = Screen.AñadirCom.route) {
-                            AñadirComprador(navController = navController, viewModel = mainViewModel)
-                        }
-                        composable(route = Screen.AñadirPed.route) {
-                            AñadirPedidos(navController = navController, viewModel = mainViewModel)
-                        }
-                        composable(route = Screen.ConfigPed.route) {
-                            ConfigurarPedido(navController = navController, viewModel = mainViewModel)
-                        }
-                        composable(route = Screen.DeteleCom.route) {
-                            EliminarComprador(navController = navController, viewModel = mainViewModel)
-                        }
-                        composable(route = Screen.DetelePed.route) {
-                            EliminarPedido(navController = navController, viewModel = mainViewModel)
                         }
 
                         // --- Flujo de Usuario ---

@@ -37,10 +37,10 @@ class UserViewModel : ViewModel() {
         viewModelScope.launch {
             // Precios en pesos chilenos (CLP)
             val samplePanes = listOf(
-                Pan(id = 1L, nombre = "Marraqueta", descripcion = "Crujiente y delicioso, ideal para sándwiches.", precio = 500.0, cantidad = 10, categoria = "Tradicional"),
-                Pan(id = 2L, nombre = "Hallulla", descripcion = "Pan plano y redondo, perfecto para el desayuno.", precio = 450.0, cantidad = 15, categoria = "Tradicional"),
-                Pan(id = 3L, nombre = "Pan Amasado", descripcion = "Un pan casero, suave y delicioso.", precio = 600.0, cantidad = 8, categoria = "Casero"),
-                Pan(id = 4L, nombre = "Dobladita", descripcion = "Masa doblada y horneada, crujiente por fuera.", precio = 550.0, cantidad = 12, categoria = "Especialidad")
+                Pan(id = "pan001", nombre = "Marraqueta", descripcion = "Crujiente y delicioso, ideal para sándwiches.", precio = 500.0),
+                Pan(id = "pan002", nombre = "Hallulla", descripcion = "Pan plano y redondo, perfecto para el desayuno.", precio = 450.0),
+                Pan(id = "pan003", nombre = "Pan Amasado", descripcion = "Un pan casero, suave y delicioso.", precio = 600.0),
+                Pan(id = "pan004", nombre = "Dobladita", descripcion = "Masa doblada y horneada, crujiente por fuera.", precio = 550.0)
             )
             _catalogo.value = samplePanes
         }
