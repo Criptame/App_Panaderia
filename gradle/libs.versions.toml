@@ -1,7 +1,7 @@
 [versions]
-agp = "8.13.2"
-kotlin = "1.9.24"
-ksp = "1.9.24-1.0.20"
+agp = "9.0.0"
+kotlin = "2.2.10"
+ksp = "2.3.2"
 coreKtx = "1.12.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -40,3 +40,4 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

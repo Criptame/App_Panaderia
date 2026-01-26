@@ -23,6 +23,33 @@ class PanRepository @Inject constructor(
 
     fun searchProductos(query: String): Flow<List<Pan>> = productoDao.searchProductos("%$query%")
 
+    fun getProductosDisponibles(): Flow<List<Pan>> = productoDao.getProductosDisponibles()
+
+    fun getProductosStockBajo(stockMinimo: Int = 10): Flow<List<Pan>> =
+        productoDao.getProductosStockBajo(stockMinimo)
+
+    // Métodos adicionales corregidos
+    suspend fun actualizarStock(id: Long, nuevaCantidad: Int) {
+        productoDao.actualizarStock(id, nuevaCantidad)
+    }
+
+    suspend fun actualizarDisponibilidad(id: Long, disponible: Boolean) {
+        productoDao.actualizarDisponibilidad(id, disponible)
+    }
+
+    fun getCategorias(): Flow<List<String>> = productoDao.getCategorias()
+
+    // Método para contar productos por categoría - Temporalmente comentado o modificado
+    suspend fun contarProductosPorCategoria(): List<CategoriaConteo> {
+        return productoDao.contarProductosPorCategoria()
+    }
+
+    // Método alternativo para obtener como Map si lo necesitas
+    suspend fun getConteoProductosPorCategoriaMap(): Map<String, Int> {
+        return contarProductosPorCategoria()
+            .associate { it.categoria to it.total }
+    }
+
     suspend fun insertSampleData() {
         val sampleProductos = listOf(
             Pan(
@@ -46,7 +73,7 @@ class PanRepository @Inject constructor(
                 descripcion = "Pan realizado con mantequilla de ajo",
                 precio = 5000.00,
                 cantidad = 100,
-                categoria = "Panaderia ",
+                categoria = "Panaderia",
                 imagenUrl = null
             )
         )

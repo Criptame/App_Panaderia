@@ -2,9 +2,9 @@ package com.example.app_panaderia.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.ColumnInfo
 import java.util.Date
 
-// Añadir anotación @Entity y definir nombre de tabla
 @Entity(tableName = "productos")
 data class Pan(
     @PrimaryKey(autoGenerate = true)
@@ -13,8 +13,13 @@ data class Pan(
     val descripcion: String,
     val precio: Double,
     val cantidad: Int,
+
+    @ColumnInfo(name = "imagen_url")
     val imagenUrl: String? = null,
-    val fechaCreacion: Date = Date(),
+
+    @ColumnInfo(name = "fecha_creacion")  // ¡Esta es la columna en SQL!
+    val fechaCreacion: Date = Date(),  // ¡Esta es la propiedad en Kotlin!
+
     val categoria: String,
     val disponible: Boolean = true
 )

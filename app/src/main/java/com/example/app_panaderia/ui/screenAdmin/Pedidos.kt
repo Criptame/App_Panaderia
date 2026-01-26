@@ -2,6 +2,7 @@ package com.example.app_panaderia.ui.screenAdmin
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ReceiptLong
@@ -18,7 +19,7 @@ import com.example.app_panaderia.model.Pedido
 import com.example.app_panaderia.viewModels.MainViewModel
 import java.util.Locale
 
-// Datos de ejemplo actualizados para usar Long en id y compradorId
+// Datos de ejemplo
 val samplePedidos = listOf(
     Pedido(
         id = 1L,
@@ -78,13 +79,14 @@ fun PedidosScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(samplePedidos) { pedido ->
+            items(samplePedidos) { pedido ->  // Usar items correctamente
                 PedidoItem(pedido = pedido)
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PedidoItem(pedido: Pedido) {
     Card(
@@ -94,7 +96,7 @@ fun PedidoItem(pedido: Pedido) {
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
         onClick = {
-            // Aquí puedes agregar navegación a detalles del pedido
+            // Navegar a detalles del pedido
         }
     ) {
         Row(
@@ -136,7 +138,7 @@ fun PedidoItem(pedido: Pedido) {
                     "entregado" -> Color(0xFF388E3C) // Verde para estado completado
                     "en reparto" -> Color(0xFFF57C00) // Naranja para en reparto
                     "preparando" -> Color(0xFF1976D2) // Azul para preparando
-                    else -> MaterialTheme.colorScheme.primary // Color primario del tema para otros estados
+                    else -> MaterialTheme.colorScheme.primary
                 }
 
                 Badge(

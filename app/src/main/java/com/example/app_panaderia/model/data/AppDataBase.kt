@@ -8,7 +8,6 @@ import androidx.room.TypeConverters
 import com.example.app_panaderia.model.Pan
 import com.example.app_panaderia.model.Pedido
 import com.example.app_panaderia.model.DetallePedido
-import com.example.app_panaderia.model.data.Comprador
 
 @Database(
     entities = [
@@ -17,7 +16,7 @@ import com.example.app_panaderia.model.data.Comprador
         Pedido::class,
         DetallePedido::class
     ],
-    version = 3,
+    version = 7,  // Incrementar versión por cambios de esquema
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -37,7 +36,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "panaderia_database"
                 )
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration()  // Esto eliminará datos antiguos
                     .build()
                 INSTANCE = instance
                 instance

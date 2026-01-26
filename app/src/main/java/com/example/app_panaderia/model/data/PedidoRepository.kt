@@ -4,6 +4,7 @@ import com.example.app_panaderia.model.DetallePedido
 import com.example.app_panaderia.model.Pan
 import com.example.app_panaderia.model.Pedido
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import javax.inject.Inject
 
 class PedidoRepository @Inject constructor(
@@ -11,7 +12,8 @@ class PedidoRepository @Inject constructor(
     private val productoDao: ProductoDao
 ) {
 
-    fun obtenerPedidosPorComprador(compradorId: Long): Flow<List<PedidoDao.PedidoConProductos>> {
+    // Cambiar el tipo de retorno
+    fun obtenerPedidosPorComprador(compradorId: Long): Flow<List<Pedido>> {
         return pedidoDao.getPedidosPorComprador(compradorId)
     }
 
@@ -25,24 +27,23 @@ class PedidoRepository @Inject constructor(
 
     suspend fun crearPedido(
         pedido: Pedido,
-        productos: List<Pan>,
-        cantidades: List<Int>
+        productos: Map<Pan, Int>  // Cambiar a Map para evitar ambigüedad
     ): Long {
         // Insertar el pedido principal
         val pedidoId = pedidoDao.insertPedido(pedido)
 
         // Insertar los detalles del pedido
-        productos.forEachIndexed { index, producto ->
+        productos.forEach { (producto, cantidad) ->
             val detalle = DetallePedido(
                 pedidoId = pedidoId,
                 productoId = producto.id,
-                cantidad = cantidades[index],
+                cantidad = cantidad,
                 precioUnitario = producto.precio
             )
             pedidoDao.insertDetalle(detalle)
 
             // Actualizar el stock del producto
-            val nuevoStock = producto.cantidad - cantidades[index]
+            val nuevoStock = producto.cantidad - cantidad
             productoDao.updateProducto(
                 producto.copy(cantidad = nuevoStock)
             )
@@ -60,8 +61,8 @@ class PedidoRepository @Inject constructor(
 
     suspend fun cancelarPedido(pedidoId: Long) {
         // Primero, restaurar el stock de los productos
-        val pedidoConDetalles = obtenerPedidoConDetalles(pedidoId)
-        pedidoConDetalles?.detalles?.forEach { detalle ->
+        val detalles = pedidoDao.getDetallesPorPedido(pedidoId)
+        detalles.forEach { detalle ->
             val producto = productoDao.getProductoById(detalle.productoId)
             producto?.let {
                 productoDao.updateProducto(
@@ -74,8 +75,17 @@ class PedidoRepository @Inject constructor(
         actualizarEstadoPedido(pedidoId, "Cancelado")
     }
 
-    suspend fun obtenerPedidoConDetalles(pedidoId: Long): PedidoDao.PedidoConProductos? {
-        val pedidos = pedidoDao.getPedidosPorComprador(0).firstOrNull()
-        return pedidos?.find { it.pedido.id == pedidoId }
+    suspend fun obtenerPedidoConDetalles(pedidoId: Long): PedidoConDetalles? {
+        val pedido = pedidoDao.getPedidoById(pedidoId)
+        return pedido?.let {
+            val detalles = pedidoDao.getDetallesPorPedido(pedidoId)
+            PedidoConDetalles(pedido, detalles)
+        }
     }
+
+    // Data class para pedido con detalles
+    data class PedidoConDetalles(
+        val pedido: Pedido,
+        val detalles: List<DetallePedido>
+    )
 }

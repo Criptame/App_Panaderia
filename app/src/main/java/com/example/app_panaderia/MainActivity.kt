@@ -112,7 +112,11 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = Screen.RepartidorPedidos.route) {
                             val repartidorViewModel: RepartidorViewModel = viewModel()
-                            PedidosRepartidorScreen(navController = navController, repartidorViewModel = repartidorViewModel)
+                            // Cambiado: PedidosRepartidorScreen → PedidosRepartidor
+                            PedidosRepartidor(
+                                navController = navController,
+                                repartidorViewModel = repartidorViewModel
+                            )
                         }
                         composable(route = Screen.RepartidorGPS.route) {
                             GPSScreen(navController = navController, viewModel = mainViewModel)
@@ -123,10 +127,11 @@ class MainActivity : ComponentActivity() {
                         ) {
                             val repartidorViewModel: RepartidorViewModel = viewModel()
                             val pedidoId = it.arguments?.getString("pedidoId")
-                            ConfirmacionPedidoScreen(
+                            // Cambiado: ConfirmacionPedidoScreen → ConfirmacionPedidos
+                            ConfirmacionPedidos(
                                 navController = navController,
-                                repartidorViewModel = repartidorViewModel,
-                                pedidoId = pedidoId
+                                pedidoId = pedidoId?.toLongOrNull(),
+                                repartidorId = 1L // O podrías obtenerlo del ViewModel
                             )
                         }
                     }
