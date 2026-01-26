@@ -4,17 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.app_panaderia.model.Pan
 
-// Añadir anotación @Database
 @Database(
-    entities = [Pan::class],
-    version = 1,
+    entities = [Pan::class, Comprador::class],
+    version = 2,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun productoDao(): ProductoDao
+    abstract fun compradoresDao(): CompradoresDao
 
     companion object {
         @Volatile
@@ -27,7 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "panaderia_database"
                 )
-                    .fallbackToDestructiveMigration() // Elimina y recrea en migraciones
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance

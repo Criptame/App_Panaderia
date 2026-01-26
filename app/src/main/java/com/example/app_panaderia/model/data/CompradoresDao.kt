@@ -3,6 +3,7 @@ package com.example.app_panaderia.model.data
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface CompradoresDao {
     @Query("SELECT * FROM compradores ORDER BY id DESC")
     fun getAll(): Flow<List<Comprador>>
@@ -18,5 +19,4 @@ interface CompradoresDao {
 
     @Query("SELECT * FROM compradores WHERE id = :id LIMIT 1")
     suspend fun findById(id: Long): Comprador?
-
 }
