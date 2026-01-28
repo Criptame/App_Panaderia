@@ -1,23 +1,17 @@
 [versions]
-<<<<<<< HEAD
 agp = "9.0.0"
-kotlin = "2.2.10"
-ksp = "2.3.2"
-=======
-agp = "8.2.2"  # Compatible con Gradle 8.4
-kotlin = "1.9.23"  # Versión estable compatible
-ksp = "1.9.23-1.0.19"
->>>>>>> parent of 340207c (ADDE)
-coreKtx = "1.12.0"
+coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.6.2"
+lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.8.0"
-composeBom = "2023.10.01"
-navigationRuntimeKtx = "2.7.4"
-navigationCompose = "2.7.4"
-material3WindowSizeClass = "1.1.2"
+kotlin = "2.0.21"
+composeBom = "2024.09.00"
+navigationRuntimeKtx = "2.9.6"
+navigationCompose = "2.9.6"
+ui = "1.10.1"
+material3WindowSizeClass = "1.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,15 +30,10 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "ui" }
 androidx-compose-material3-window-size-class1 = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "material3WindowSizeClass" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-<<<<<<< HEAD
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-=======
-hilt = { id = "com.google.dagger.hilt.android", version = "2.48.1" }
->>>>>>> parent of 340207c (ADDE)
+
