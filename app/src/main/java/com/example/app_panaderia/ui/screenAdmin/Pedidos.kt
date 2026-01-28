@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.app_panaderia.model.Pedido
@@ -37,9 +36,9 @@ import com.example.app_panaderia.viewModels.MainViewModel
 
 // Datos de ejemplo
 val samplePedidos = listOf(
-    Pedido(id = "PED-001", compradorId = "USR-001", total = 25.50, estado = "Pendiente", fecha = "2024-05-20"),
-    Pedido(id = "PED-002", compradorId = "USR-002", total = 15.00, estado = "En reparto", fecha = "2024-05-20"),
-    Pedido(id = "PED-003", compradorId = "USR-001", total = 45.75, estado = "Entregado", fecha = "2024-05-19")
+    Pedido(id = 1L, compradorId = 101L, total = 25.50, estado = "Pendiente", fecha = "2024-05-20", direccionEntrega = "Calle Falsa 123"),
+    Pedido(id = 2L, compradorId = 102L, total = 15.00, estado = "En reparto", fecha = "2024-05-20", direccionEntrega = "Avenida Siempreviva 742"),
+    Pedido(id = 3L, compradorId = 101L, total = 45.75, estado = "Entregado", fecha = "2024-05-19", direccionEntrega = "Elm Street 1428")
 )
 
 @OptIn(ExperimentalMaterial3Api::class)

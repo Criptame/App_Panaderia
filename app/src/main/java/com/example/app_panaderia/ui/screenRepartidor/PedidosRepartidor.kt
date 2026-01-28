@@ -8,45 +8,26 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.DeliveryDining  // Icono correcto
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.app_panaderia.viewModels.RepartidorViewModel
 import com.example.app_panaderia.model.Pedido
+import com.example.app_panaderia.viewModels.RepartidorViewModel
 import java.util.Locale
-
-// Datos de ejemplo para repartidor
-val pedidosRepartidor = listOf(
-    Pedido(
-        id = 2L,
-        compradorId = 2L,
-        repartidorId = 1L,  // Este repartidor
-        total = 15.00,
-        estado = "En reparto",
-        fecha = "2024-05-20",
-        direccionEntrega = "Avenida Central 456"
-    ),
-    Pedido(
-        id = 4L,
-        compradorId = 3L,
-        repartidorId = 1L,  // Este repartidor
-        total = 30.50,
-        estado = "Pendiente",
-        fecha = "2024-05-21",
-        direccionEntrega = "Calle Norte 789"
-    )
-)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PedidosRepartidor(
     navController: NavController,
     repartidorViewModel: RepartidorViewModel,  // Agregado parámetro ViewModel
-    repartidorId: Long = 1L
 ) {
+    val pedidos by repartidorViewModel.pedidos.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -66,8 +47,6 @@ fun PedidosRepartidor(
             )
         }
     ) { paddingValues ->
-        val misPedidos = pedidosRepartidor.filter { it.repartidorId == repartidorId }
-
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -75,11 +54,11 @@ fun PedidosRepartidor(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(misPedidos) { pedido ->
-                PedidoRepartidorItem(pedido = pedido, repartidorId = repartidorId)
+            items(pedidos) { pedido ->
+                PedidoRepartidorItem(pedido = pedido)
             }
 
-            if (misPedidos.isEmpty()) {
+            if (pedidos.isEmpty()) {
                 item {
                     Column(
                         modifier = Modifier
@@ -100,7 +79,7 @@ fun PedidosRepartidor(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PedidoRepartidorItem(pedido: Pedido, repartidorId: Long) {
+fun PedidoRepartidorItem(pedido: Pedido) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(4.dp),
@@ -172,7 +151,7 @@ fun PedidoRepartidorItem(pedido: Pedido, repartidorId: Long) {
                             Text("Entregado")
                         }
                     }
-                    "pendiente" -> {
+                    "pendiente de recogida" -> {
                         OutlinedButton(
                             onClick = { /* Iniciar entrega */ },
                             modifier = Modifier.width(120.dp)
