@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.app_panaderia.navigation.NavigationEvent
 import com.example.app_panaderia.navigation.Screen
+import com.example.app_panaderia.ui.catalogo.CarritoScreen  // <-- Agregar import
 import com.example.app_panaderia.ui.catalogo.CatalogoScreen
 import com.example.app_panaderia.ui.role.RoleSelectionScreen
 import com.example.app_panaderia.ui.screenAdmin.*
@@ -88,7 +89,21 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = Screen.UserCatalogo.route) {
                             val userViewModel: UserViewModel = viewModel()
-                            CatalogoScreen(navController = navController, userViewModel = userViewModel)
+                            val carritoViewModel: CarritoViewModel = viewModel()  // <-- Agregar ViewModel
+                            CatalogoScreen(
+                                navController = navController,
+                                userViewModel = userViewModel,
+                                carritoViewModel = carritoViewModel  // <-- Pasar ViewModel
+                            )
+                        }
+
+                        // --- Pantalla de Carrito ---
+                        composable(route = Screen.Carrito.route) {  // <-- Agregar esta línea
+                            val carritoViewModel: CarritoViewModel = viewModel()
+                            CarritoScreen(
+                                navController = navController,
+                                carritoViewModel = carritoViewModel
+                            )
                         }
 
                         // --- Flujo de Repartidor ---
@@ -97,14 +112,24 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = Screen.RepartidorPedidos.route) {
                             val repartidorViewModel: RepartidorViewModel = viewModel()
-                            // Cambiado: PedidosRepartidorScreen → PedidosRepartidor
                             PedidosRepartidor(
                                 navController = navController,
                                 repartidorViewModel = repartidorViewModel
                             )
                         }
+
+                        // En MainActivity, cambia esto:
+                        composable(route = Screen.Produc.route) {
+                            val productoViewModel: ProductoViewModel = viewModel()
+                            ProductosScreen(  // O ProductosScreen
+                                navController = navController,
+                                productoViewModel = productoViewModel
+                            )
+                        }
+
                         composable(route = Screen.RepartidorGPS.route) {
                             GPSScreen(navController = navController, viewModel = mainViewModel)
+
                         }
                         composable(
                             route = Screen.RepartidorConfirmacion.route,
@@ -112,11 +137,10 @@ class MainActivity : ComponentActivity() {
                         ) {
                             val repartidorViewModel: RepartidorViewModel = viewModel()
                             val pedidoId = it.arguments?.getString("pedidoId")
-                            // Cambiado: ConfirmacionPedidoScreen → ConfirmacionPedidos
                             ConfirmacionPedidos(
                                 navController = navController,
                                 pedidoId = pedidoId?.toLongOrNull(),
-                                repartidorId = 1L // O podrías obtenerlo del ViewModel
+                                repartidorId = 1L
                             )
                         }
                     }

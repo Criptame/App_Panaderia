@@ -3,6 +3,8 @@ package com.example.app_panaderia.navigation
 sealed class Screen(val route: String) {
     // Common
     data object RoleSelection : Screen(route = "role_selection_page")
+    // Agrega esta línea en tu sealed class Screen:
+    data object Carrito : Screen(route = "carrito_page")
 
     // Admin Flow
     data object Admin : Screen(route = "admin_login_page") // Pantalla de login para el admin
@@ -15,6 +17,9 @@ sealed class Screen(val route: String) {
     data object DeteleCom : Screen(route = "deletecom_page")
     data object DetelePed : Screen(route = "deleteped_page")
     data object Ped : Screen(route = "ped_page")
+    data object Produc : Screen(route = "producto_page")
+    data object DeteleProduc : Screen(route = "deleteproducto_page")
+
 
     // User Flow
     data object UserHome : Screen(route = "user_home_page")
