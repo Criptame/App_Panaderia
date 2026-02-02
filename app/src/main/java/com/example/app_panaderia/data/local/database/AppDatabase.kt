@@ -5,9 +5,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import android.content.Context
 import androidx.room.TypeConverters
-import com.example.app_panaderia.model.Pan
 import com.example.app_panaderia.data.local.dao.PanDao
 import com.example.app_panaderia.model.Converters
+import com.example.app_panaderia.model.Pan
 
 @Database(
     entities = [Pan::class],
@@ -27,7 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "panaderia_db.db"
+                    "pan_cache.db"
                 )
                     .fallbackToDestructiveMigration()
                     .build()

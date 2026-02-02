@@ -1,15 +1,14 @@
 package com.example.app_panaderia
 
-import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -26,20 +25,19 @@ import com.example.app_panaderia.ui.screenRepartidor.*
 import com.example.app_panaderia.ui.screenUser.*
 import com.example.app_panaderia.ui.theme.App_PanaderiaTheme
 import com.example.app_panaderia.viewModels.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val productoViewModel: ProductoViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             App_PanaderiaTheme {
                 val navController = rememberNavController()
                 val mainViewModel: MainViewModel = viewModel()
-
-                val appContext = LocalContext.current.applicationContext as Application
-                val productoViewModel: ProductoViewModel = viewModel(
-                    factory = ProductoViewModelFactory(appContext)
-                )
 
                 LaunchedEffect(key1 = Unit) {
                     mainViewModel.navigationEvents.collectLatest { event ->

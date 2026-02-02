@@ -7,8 +7,9 @@ import java.util.Date
 
 @Entity(tableName = "productos")
 data class Pan(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)  // ID viene de API
     val id: Long = 0,
+
     val nombre: String,
     val descripcion: String,
     val precio: Double,
@@ -17,9 +18,12 @@ data class Pan(
     @ColumnInfo(name = "imagen_url")
     val imagenUrl: String? = null,
 
-    @ColumnInfo(name = "fecha_creacion")  // ¡Esta es la columna en SQL!
-    val fechaCreacion: Date = Date(),  // ¡Esta es la propiedad en Kotlin!
+    @ColumnInfo(name = "fecha_creacion")
+    val fechaCreacion: Date = Date(),
 
     val categoria: String,
-    val disponible: Boolean = true
+    val disponible: Boolean = true,
+
+    @ColumnInfo(name = "last_updated")  // Para saber si está actualizado
+    val lastUpdated: Long = System.currentTimeMillis()
 )
