@@ -1,17 +1,31 @@
 package com.example.app_panaderia.model
 
-class Usuario {
-    var id: String = ""
-    var nombre: String = ""
-    var email: String = ""
-    var rol: String = ""
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.ColumnInfo
+import java.util.Date
 
-    constructor()
+@Entity(tableName = "usuarios")
+data class Usuario(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
 
-    constructor(id: String, nombre: String, email: String, rol: String) {
-        this.id = id
-        this.nombre = nombre
-        this.email = email
-        this.rol = rol
-    }
-}
+    @ColumnInfo(name = "nombre_completo")
+    val nombre: String,
+
+    val email: String,
+
+    @ColumnInfo(name = "contrasena_hash")
+    val contrasenaHash: String,
+
+    val rol: String, // "admin", "usuario", "repartidor"
+
+    val telefono: String? = null,
+
+    val direccion: String? = null,
+
+    @ColumnInfo(name = "fecha_registro")
+    val fechaRegistro: Date = Date(),
+
+    val activo: Boolean = true
+)
