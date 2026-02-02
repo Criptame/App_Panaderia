@@ -16,12 +16,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.app_panaderia.model.Pedido
 import com.example.app_panaderia.viewModels.MainViewModel
+import java.util.*
 
 // Datos de ejemplo
 val samplePedidos = listOf(
-    Pedido(id = 1L, compradorId = 101L, total = 25.50, estado = "Pendiente", fecha = "2024-05-20", direccionEntrega = "Calle Falsa 123"),
-    Pedido(id = 2L, compradorId = 102L, total = 15.00, estado = "En reparto", fecha = "2024-05-20", direccionEntrega = "Avenida Siempreviva 742"),
-    Pedido(id = 3L, compradorId = 101L, total = 45.75, estado = "Entregado", fecha = "2024-05-19", direccionEntrega = "Elm Street 1428")
+    Pedido(id = 1L, usuarioId = 101L, total = 25.50, estado = "Pendiente", fechaPedido = Date(), direccion = "Calle Falsa 123"),
+    Pedido(id = 2L, usuarioId = 102L, total = 15.00, estado = "En reparto", fechaPedido = Date(), direccion = "Avenida Siempreviva 742"),
+    Pedido(id = 3L, usuarioId = 101L, total = 45.75, estado = "Entregado", fechaPedido = Date(), direccion = "Elm Street 1428")
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -81,7 +82,7 @@ fun PedidoItem(pedido: Pedido) {
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Cliente: ${pedido.compradorId}",
+                    text = "Cliente: ${pedido.usuarioId}",
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
@@ -97,7 +98,7 @@ fun PedidoItem(pedido: Pedido) {
                     else -> MaterialTheme.colorScheme.primary // Marrón del tema para otros estados
                 }
                 Text(text = pedido.estado, color = estadoColor, fontWeight = FontWeight.Bold)
-                Text(text = pedido.fecha, style = MaterialTheme.typography.bodySmall)
+                Text(text = pedido.fechaPedido.toString(), style = MaterialTheme.typography.bodySmall)
             }
         }
     }

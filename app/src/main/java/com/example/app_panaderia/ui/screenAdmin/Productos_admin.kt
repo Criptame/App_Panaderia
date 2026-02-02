@@ -23,7 +23,7 @@ fun ProductosScreen(
     navController: NavController,
     productoViewModel: ProductoViewModel
 ) {
-    val productos by productoViewModel.productos.collectAsState()
+    val productos by productoViewModel.productos.collectAsState(initial = emptyList())
     var productoToDelete by remember { mutableStateOf<Pan?>(null) }
 
     Scaffold(

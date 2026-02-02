@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.app_panaderia.model.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.util.*
 
 class RepartidorViewModel : ViewModel() {
 
@@ -34,9 +35,9 @@ class RepartidorViewModel : ViewModel() {
         viewModelScope.launch {
             // Simulación de carga de pedidos asignados con IDs de tipo Long
             val samplePedidos = listOf(
-                Pedido(id = 2L, compradorId = 102L, repartidorId = 456L, total = 15.00, estado = "En reparto", fecha = "2024-05-20", direccionEntrega = "Avenida Siempreviva 742"),
-                Pedido(id = 4L, compradorId = 103L, repartidorId = 456L, total = 12.50, estado = "Pendiente de recogida", fecha = "2024-05-21", direccionEntrega = "Calle Falsa 123"),
-                Pedido(id = 5L, compradorId = 104L, repartidorId = 456L, total = 8.75, estado = "Pendiente de recogida", fecha = "2024-05-21", direccionEntrega = "Elm Street 1428")
+                Pedido(id = 2L, usuarioId = 102L, repartidorId = 456L, total = 15.00, estado = "En reparto", fechaPedido = Date(), direccion = "Avenida Siempreviva 742"),
+                Pedido(id = 4L, usuarioId = 103L, repartidorId = 456L, total = 12.50, estado = "Pendiente de recogida", fechaPedido = Date(), direccion = "Calle Falsa 123"),
+                Pedido(id = 5L, usuarioId = 104L, repartidorId = 456L, total = 8.75, estado = "Pendiente de recogida", fechaPedido = Date(), direccion = "Elm Street 1428")
             )
             _pedidos.value = samplePedidos
         }

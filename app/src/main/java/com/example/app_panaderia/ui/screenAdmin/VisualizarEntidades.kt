@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -105,7 +106,7 @@ fun VisualizarEntidadesScreen(navController: NavController) {
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Logout,
+                        imageVector = Icons.AutoMirrored.Filled.Logout,
                         contentDescription = "Cerrar sesión",
                         modifier = Modifier.size(18.dp)
                     )

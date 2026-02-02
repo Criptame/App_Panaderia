@@ -1,14 +1,15 @@
 package com.example.app_panaderia
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -17,7 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.app_panaderia.navigation.NavigationEvent
 import com.example.app_panaderia.navigation.Screen
-import com.example.app_panaderia.ui.catalogo.CarritoScreen  // <-- Agregar import
+import com.example.app_panaderia.ui.catalogo.CarritoScreen
 import com.example.app_panaderia.ui.catalogo.CatalogoScreen
 import com.example.app_panaderia.ui.role.RoleSelectionScreen
 import com.example.app_panaderia.ui.screenAdmin.*
@@ -27,7 +28,6 @@ import com.example.app_panaderia.ui.theme.App_PanaderiaTheme
 import com.example.app_panaderia.viewModels.*
 import kotlinx.coroutines.flow.collectLatest
 
-@OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +35,11 @@ class MainActivity : ComponentActivity() {
             App_PanaderiaTheme {
                 val navController = rememberNavController()
                 val mainViewModel: MainViewModel = viewModel()
+
+                val appContext = LocalContext.current.applicationContext as Application
+                val productoViewModel: ProductoViewModel = viewModel(
+                    factory = ProductoViewModelFactory(appContext)
+                )
 
                 LaunchedEffect(key1 = Unit) {
                     mainViewModel.navigationEvents.collectLatest { event ->
@@ -61,75 +66,82 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(paddingValues = innerPadding)
                     ) {
                         // --- Pantalla de Selección de Rol ---
-                        composable(route = Screen.RoleSelection.route) {
-                            RoleSelectionScreen(navController = navController)
+                        composable(Screen.RoleSelection.route) {
+                            RoleSelectionScreen(navController)
                         }
 
-                        // --- Flujo de Administrador Refactorizado ---
-                        composable(route = Screen.Admin.route) {
-                            AdminLoginScreen(navController = navController)
+                        // --- Flujo de Administrador ---
+                        composable(Screen.Admin.route) {
+                            AdminLoginScreen(navController)
                         }
-                        composable(route = Screen.Vizu.route) {
-                            VisualizarEntidadesScreen(navController = navController)
+                        composable(Screen.Vizu.route) {
+                            VisualizarEntidadesScreen(navController)
                         }
-                        composable(route = Screen.Com.route) {
-                            CompradoresScreen(navController = navController, viewModel = mainViewModel)
+                        composable(Screen.Com.route) {
+                            CompradoresScreen(navController, mainViewModel)
                         }
-                        composable(route = Screen.Pedidos.route) {
-                            PedidosScreen(navController = navController, viewModel = mainViewModel)
+                        composable(Screen.Pedidos.route) {
+                            PedidosScreen(navController, mainViewModel)
+                        }
+
+                        // --- PANTALLA DE PRODUCTOS CON ROOM ---
+                        composable(Screen.Produc.route) {
+                            ProductosScreen(navController, productoViewModel)
+                        }
+
+                        // --- PANTALLA PARA AÑADIR PRODUCTO ---
+                        composable(Screen.AñadirCom.route) {
+                            AñadirProductoScreenSimple(navController, productoViewModel)
+                        }
+
+                        // Otras pantallas de admin (placeholders)
+                        composable(Screen.ConfigPed.route) {
+                            Text("Configurar Pedidos")
+                        }
+                        composable(Screen.AñadirPed.route) {
+                            Text("Añadir Pedido")
+                        }
+                        composable(Screen.DeteleCom.route) {
+                            Text("Eliminar Comprador")
+                        }
+                        composable(Screen.DetelePed.route) {
+                            Text("Eliminar Pedido")
+                        }
+                        composable(Screen.DeteleProduc.route) {
+                            ProductosScreen(navController, productoViewModel)
+                        }
+                        composable(Screen.Ped.route) {
+                            Text("Detalle Pedido")
                         }
 
                         // --- Flujo de Usuario ---
-                        composable(route = Screen.UserHome.route) {
-                            UserHomeScreen(navController = navController)
+                        composable(Screen.UserHome.route) {
+                            UserHomeScreen(navController)
                         }
-                        composable(route = Screen.UserProfile.route) {
+                        composable(Screen.UserProfile.route) {
                             val userViewModel: UserViewModel = viewModel()
-                            Perfil(navController = navController, viewModel = userViewModel)
+                            Perfil(navController, userViewModel)
                         }
-                        composable(route = Screen.UserCatalogo.route) {
+                        composable(Screen.UserCatalogo.route) {
                             val userViewModel: UserViewModel = viewModel()
-                            val carritoViewModel: CarritoViewModel = viewModel()  // <-- Agregar ViewModel
-                            CatalogoScreen(
-                                navController = navController,
-                                userViewModel = userViewModel,
-                                carritoViewModel = carritoViewModel  // <-- Pasar ViewModel
-                            )
-                        }
-
-                        // --- Pantalla de Carrito ---
-                        composable(route = Screen.Carrito.route) {  // <-- Agregar esta línea
                             val carritoViewModel: CarritoViewModel = viewModel()
-                            CarritoScreen(
-                                navController = navController,
-                                carritoViewModel = carritoViewModel
-                            )
+                            CatalogoScreen(navController, userViewModel, carritoViewModel)
+                        }
+                        composable(Screen.Carrito.route) {
+                            val carritoViewModel: CarritoViewModel = viewModel()
+                            CarritoScreen(navController, carritoViewModel)
                         }
 
                         // --- Flujo de Repartidor ---
-                        composable(route = Screen.Repartidor.route) {
-                            RepartidorHomeScreen(navController = navController)
+                        composable(Screen.Repartidor.route) {
+                            RepartidorHomeScreen(navController)
                         }
-                        composable(route = Screen.RepartidorPedidos.route) {
+                        composable(Screen.RepartidorPedidos.route) {
                             val repartidorViewModel: RepartidorViewModel = viewModel()
-                            PedidosRepartidor(
-                                navController = navController,
-                                repartidorViewModel = repartidorViewModel
-                            )
+                            PedidosRepartidor(navController, repartidorViewModel)
                         }
-
-                        // En MainActivity, cambia esto:
-                        composable(route = Screen.Produc.route) {
-                            val productoViewModel: ProductoViewModel = viewModel()
-                            ProductosScreen(  // O ProductosScreen
-                                navController = navController,
-                                productoViewModel = productoViewModel
-                            )
-                        }
-
-                        composable(route = Screen.RepartidorGPS.route) {
-                            GPSScreen(navController = navController, viewModel = mainViewModel)
-
+                        composable(Screen.RepartidorGPS.route) {
+                            GPSScreen(navController, mainViewModel)
                         }
                         composable(
                             route = Screen.RepartidorConfirmacion.route,

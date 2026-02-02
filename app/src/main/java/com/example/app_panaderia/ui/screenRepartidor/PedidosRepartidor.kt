@@ -108,7 +108,7 @@ fun PedidoRepartidorItem(pedido: Pedido) {
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Cliente ID: ${pedido.compradorId}",
+                    text = "Cliente ID: ${pedido.usuarioId}",
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
@@ -117,7 +117,7 @@ fun PedidoRepartidorItem(pedido: Pedido) {
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "Dirección: ${pedido.direccionEntrega}",
+                    text = "Dirección: ${pedido.direccion}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
